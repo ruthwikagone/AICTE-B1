@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATS-Friendly AI Resume & Portfolio Builder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">AICTE Internship Project</p>
+      <h1>ATS-Friendly AI Resume & Portfolio Builder</h1>
+      <p class="hero-copy">Generate role-tailored career documents, analyze skill gaps, and prepare an interview roadmap from one student profile.</p>
+    </div>
+    <div class="hero-actions">
+      <button id="sampleBtn" class="ghost-btn" type="button">Load Mentor Demo</button>
+      <button id="clearBtn" class="ghost-btn" type="button">Clear</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="workspace" aria-label="Student input form">
+      <div class="panel-title">
+        <h2>Student Profile</h2>
+        <p>Enter student data once and generate an ATS-readable resume, cover letter, and portfolio.</p>
+      </div>
+
+      <div class="form-grid">
+        <label>
+          Smart role preset
+          <select id="rolePreset">
+            <option value="">Custom role</option>
+            <option value="aiMlIntern">AI/ML Intern</option>
+            <option value="dataAnalyst">Data Analyst Intern</option>
+            <option value="webDeveloper">Web Developer Intern</option>
+            <option value="cybersecurity">Cybersecurity Intern</option>
+          </select>
+        </label>
+        <label>
+          Full name
+          <input id="fullName" type="text" placeholder="Student Name">
+        </label>
+        <label>
+          Target role
+          <input id="targetRole" type="text" placeholder="AI/ML Intern">
+        </label>
+        <label>
+          Email
+          <input id="email" type="email" placeholder="student@example.com">
+        </label>
+        <label>
+          Phone
+          <input id="phone" type="tel" placeholder="+91 90000 00000">
+        </label>
+        <label>
+          Location
+          <input id="location" type="text" placeholder="Hyderabad, India">
+        </label>
+      </div>
+
+      <div class="form-grid">
+        <label>
+          LinkedIn URL
+          <input id="linkedinUrl" type="url" placeholder="https://linkedin.com/in/name">
+        </label>
+        <label>
+          GitHub URL
+          <input id="githubUrl" type="url" placeholder="https://github.com/name">
+        </label>
+        <label>
+          Portfolio / website URL
+          <input id="portfolioUrl" type="url" placeholder="https://your-portfolio.com">
+        </label>
+        <label>
+          Other links
+          <input id="links" type="text" placeholder="Kaggle, LeetCode, blog or additional profile links">
+        </label>
+      </div>
+
+      <label>
+        Education
+        <textarea id="education" rows="3" placeholder="B.Tech CSE, 3rd year, CGPA 8.4, AICTE internship applicant"></textarea>
+      </label>
+      <div class="form-grid">
+        <label>
+          GPA
+          <input id="gpa" type="text" placeholder="3.7 / 4.0">
+        </label>
+        <label>
+          CGPA / Percentage
+          <input id="cgpa" type="text" placeholder="8.4 CGPA or 84%">
+        </label>
+        <label>
+          Graduation year
+          <input id="graduationYear" type="text" placeholder="2027">
+        </label>
+      </div>
+      <label>
+        Skills
+        <textarea id="skills" rows="3" placeholder="Java, Python, HTML, CSS, JavaScript, ML basics, prompt engineering"></textarea>
+      </label>
+      <label>
+        Internships
+        <textarea id="internships" rows="4" placeholder="AI Intern at ABC Company - worked on prompt engineering, API testing and documentation"></textarea>
+      </label>
+      <label>
+        Work experience
+        <textarea id="workExperience" rows="4" placeholder="Freelance web developer - built responsive pages for college events using HTML, CSS and JavaScript"></textarea>
+      </label>
+      <label>
+        Projects
+        <textarea id="projects" rows="5" placeholder="AI Resume Builder - generated tailored resumes using Gemini API; Student Result Dashboard - visualized grades with charts"></textarea>
+      </label>
+      <label>
+        Project URLs
+        <textarea id="projectUrls" rows="3" placeholder="AI Resume Builder - https://github.com/name/ai-resume-builder&#10;Portfolio Demo - https://your-demo-link.com"></textarea>
+      </label>
+      <label>
+        Achievements and certifications
+        <textarea id="achievements" rows="3" placeholder="Google AI Essentials, AICTE internship, hackathon finalist"></textarea>
+      </label>
+      <div class="form-grid">
+        <label>
+          Certifications
+          <textarea id="certifications" rows="3" placeholder="Python Basics, Google AI Essentials, SQL Fundamentals"></textarea>
+        </label>
+        <label>
+          Certification URLs
+          <textarea id="certificationUrls" rows="3" placeholder="Google AI Essentials - https://coursera.org/verify/your-certificate"></textarea>
+        </label>
+        <label>
+          Languages
+          <textarea id="languages" rows="3" placeholder="English, Hindi, Telugu"></textarea>
+        </label>
+      </div>
+      <label>
+        Strengths / soft skills
+        <textarea id="strengths" rows="3" placeholder="Problem solving, teamwork, communication, fast learner, documentation"></textarea>
+      </label>
+      <label>
+        Job or internship description
+        <textarea id="jobDescription" rows="5" placeholder="Paste the job or internship description so the AI can align exact ATS keywords truthfully."></textarea>
+      </label>
+    </section>
+
+    <aside class="controls" aria-label="AI generation settings">
+      <div class="panel-title">
+        <h2>AI Settings</h2>
+        <p>Python backend calls Gemini and Hugging Face LLM APIs using protected environment keys.</p>
+      </div>
+
+      <label>
+        Provider
+        <select id="provider">
+          <option value="gemini">Gemini API</option>
+          <option value="huggingface">Hugging Face Router</option>
+          <option value="demo">Demo Generator</option>
+        </select>
+      </label>
+      <label>
+        Output type
+        <select id="outputType">
+          <option value="all">ATS Resume + Cover Letter + Portfolio</option>
+          <option value="resume">ATS Resume only</option>
+          <option value="cover">Cover letter only</option>
+          <option value="portfolio">Portfolio only</option>
+        </select>
+      </label>
+      <label>
+        Tone
+        <select id="tone">
+          <option value="professional">Professional</option>
+          <option value="confident">Confident</option>
+          <option value="fresh graduate">Fresh graduate</option>
+          <option value="technical">Technical</option>
+        </select>
+      </label>
+
+      <button id="generateBtn" class="primary-btn" type="button">Generate Documents</button>
+      <button id="downloadBtn" class="ghost-btn" type="button">Download Selected PDF</button>
+      <button id="copyBtn" class="ghost-btn" type="button">Copy Active Tab</button>
+      <p class="download-note">PDF exports only the selected document. AI insights stay in the dashboard.</p>
+      <p id="providerStatus" class="status">Checking backend providers...</p>
+      <p id="status" class="status" role="status">Ready.</p>
+    </aside>
+
+    <section class="model-strip" aria-label="AI and machine learning model pipeline">
+      <div class="model-card">
+        <span>LLM</span>
+        <strong>Gemini / Hugging Face</strong>
+        <p>Generates resume, cover letter and portfolio content through protected backend APIs.</p>
+      </div>
+      <div class="model-card">
+        <span>NLP</span>
+        <strong>Keyword Matcher</strong>
+        <p>Compares job description terms with generated content for ATS targeting.</p>
+      </div>
+      <div class="model-card">
+        <span>ML Score</span>
+        <strong>Resume Readiness</strong>
+        <p>Scores contact, education, skills, metrics, action verbs and project strength.</p>
+      </div>
+      <div class="model-card">
+        <span>Recommender</span>
+        <strong>Career Roadmap</strong>
+        <p>Suggests missing skills, project ideas and interview preparation questions.</p>
+      </div>
+    </section>
+
+    <section class="quick-stats" aria-label="Live profile quality">
+      <div>
+        <span id="profileCompleteness">0%</span>
+        <p>Profile Complete</p>
+      </div>
+      <div>
+        <span id="skillCount">0</span>
+        <p>Skills Detected</p>
+      </div>
+      <div>
+        <span id="projectCount">0</span>
+        <p>Projects Detected</p>
+      </div>
+      <div>
+        <span id="keywordCount">0</span>
+        <p>JD Keywords</p>
+      </div>
+    </section>
+
+    <section class="insights" aria-label="AI career insights">
+      <div class="preview-toolbar">
+        <h2>AI Career Insights</h2>
+        <p id="insightSummary" class="status">Generate documents to view ATS score, keyword match, format checks and interview prep.</p>
+      </div>
+      <div class="insight-grid">
+        <div class="score-panel">
+          <span id="atsScore" class="score-value">--</span>
+          <span class="score-label">ATS Readiness</span>
+        </div>
+        <div class="score-panel mentor-panel">
+          <span id="mentorScore" class="score-value">--</span>
+          <span class="score-label">Mentor Appeal</span>
+        </div>
+        <div>
+          <h3>Matched Keywords</h3>
+          <div id="matchedKeywords" class="chip-row">
+            <span class="empty-state">Waiting for generated content.</span>
+          </div>
+        </div>
+        <div>
+          <h3>Missing Keywords</h3>
+          <div id="missingKeywords" class="chip-row">
+            <span class="empty-state">Waiting for job description.</span>
+          </div>
+        </div>
+        <div>
+          <h3>AI Improvement Tips</h3>
+          <ul id="aiTips" class="insight-list">
+            <li>Generate documents first.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>ATS Format Checks</h3>
+          <ul id="atsChecks" class="insight-list">
+            <li>Generate documents first.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Interview Prep Questions</h3>
+          <ul id="interviewQuestions" class="insight-list">
+            <li>Generate documents first.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Resume Corrections</h3>
+          <ul id="resumeCorrections" class="insight-list">
+            <li>Generate documents first.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Skill Gap Roadmap</h3>
+          <ul id="skillRoadmap" class="insight-list">
+            <li>Start typing skills or load the sample profile.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>AI Project Ideas</h3>
+          <ul id="projectIdeas" class="insight-list">
+            <li>Choose a target role to view project ideas.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="preview" aria-label="Generated output preview">
+      <div class="preview-toolbar">
+        <h2>Generated Output</h2>
+        <div class="tabs" role="tablist" aria-label="Preview tabs">
+          <button class="tab active" data-tab="resume" type="button">Resume</button>
+          <button class="tab" data-tab="cover" type="button">Cover Letter</button>
+          <button class="tab" data-tab="portfolio" type="button">Portfolio</button>
+        </div>
+      </div>
+      <article id="output" class="document-output">
+        <p class="empty-state">Fill the form and generate ATS-friendly career documents. The demo generator works without API keys.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built with Python, LLM APIs and an ATS-focused frontend for students applying through AICTE-style portals.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
