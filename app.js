@@ -101,6 +101,8 @@ const documents = {
   portfolio: "",
 };
 
+const API_BASE_URL = "https://aicte-b1.onrender.com";
+
 let activeTab = "resume";
 
 const output = document.querySelector("#output");
@@ -160,7 +162,7 @@ function bindEvents() {
 
 async function refreshProviderStatus() {
   try {
-    const response = await fetch("/api/providers");
+    const response = await fetch(`${API_BASE_URL}/api/providers`);
     const data = await response.json();
     const gemini = data.gemini ? "Gemini ready" : "Gemini key missing";
     const huggingFace = data.huggingface ? "Hugging Face ready" : "Hugging Face key missing";
@@ -226,7 +228,7 @@ async function generateDocuments() {
   statusEl.textContent = "Generating with the Python LLM backend...";
 
   try {
-    const response = await fetch("/api/generate", {
+    const response = await fetch(`${API_BASE_URL}/api/generate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
